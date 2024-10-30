@@ -1,6 +1,6 @@
 # 🎉 İstenmeyen Klavye Düzenini Kaldırma
 
-Bu **PowerShell programı**, Windows 10 ve 11'de istenmeyen Çek QWERTZ klavye düzenini yeniden başlatmaya gerek kalmadan kaldırmanızı sağlar. 💻✨
+Bu **PowerShell programı**, Windows 10 ve 11'de istenmeyen İngilizce klavye düzenini yeniden başlatmaya gerek kalmadan kaldırmanızı sağlar. 💻✨
 
 ## Kullanım
 
