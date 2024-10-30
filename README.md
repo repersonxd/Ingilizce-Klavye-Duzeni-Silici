@@ -10,7 +10,6 @@ powershell -ExecutionPolicy Bypass -File "$DownloadsPath\IngilizceKlavyeDuzeniSi
 ```
 
 Önemli Notlar ⚠️
-Bu program imzasızdır. Çalıştırmadan önce PowerShell’de imzasız programların çalıştırılmasına izin vermeniz gerekir. Bu, kendi bilgisayarınızda yazdığınız imzasız programları çalıştırmanıza ve internetten gelen imzalı programlara izin verir.
 
 Yapmanız Gerekenler:
 PowerShell’i "Yönetici olarak çalıştır" seçeneğiyle açın.
