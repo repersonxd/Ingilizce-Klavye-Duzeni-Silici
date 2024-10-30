@@ -1,64 +1,64 @@
-# Yeniden başlatmadan istenmeyen İngilizce ABD klavye düzenini kaldır
-# Eğer çıktıyı kaydetmek istiyorsanız, komutu yönlendirme ile çalıştırabilirsiniz (örneğin "powershell .\IstenmeyenABDLayoutuKaldir.ps1 >output.txt")
-# veya çıktıyı panoya kopyalayabilirsiniz (örneğin "powershell .\IstenmeyenABDLayoutuKaldir.ps1 | clip")
+# Remove unwanted English (US) keyboard layout without reboot
+# If you would like to save the output, you can run the command with redirection (for example, "powershell .\RemoveUnwantedUSLayout.ps1 >output.txt")
+# or you can copy the output to the clipboard (for example, "powershell .\RemoveUnwantedUSLayout.ps1 | clip")
 
-Write-Host "Yeniden başlatmadan istenmeyen İngilizce ABD klavye düzenini kaldır [v0.1]"
-Write-Host "Sistem tarihi:" (Get-Date -format "dd.MM.yyyy hh:mm:ss")
+Write-Host "Remove unwanted English (US) keyboard layout without reboot [v0.1]"
+Write-Host "System date:" (Get-Date -format "dd.MM.yyyy hh:mm:ss")
 
-# Klavye düzeninin kaldırılacağı dil kimliği
+# Locale ID for the keyboard layout to be removed
 $LCID_English_US = '0409'
-# Kaldırılacak klavye düzeni kodu
+# Keyboard layout code to be removed
 $Keyboard_English_US = '00000409'
 
-# Yüklü tüm dilleri getir
+# Get all installed languages
 $languages = Get-WinUserLanguageList
-Write-Host "`nYüklü diller"
+Write-Host "`nInstalled languages"
 Write-Host "==================="
 Write-Host ($languages | Format-Table | Out-String) -NoNewline
 
-# İstenmeyen klavye düzeni dinamik olarak eklenir ve Windows dil/klavye ayarlarında görünmez
-# Kaldırma işlemi için öncelikle Windows dil/klavye ayarlarına doğru şekilde eklenmelidir
-Write-Host "Aşama 1 - ekleme"
+# The unwanted keyboard layout is dynamically added and is not visible in Windows language/keyboard settings
+# To remove it, it must first be correctly added to the Windows language/keyboard settings
+Write-Host "Phase 1 - adding"
 Write-Host "-------------"
 ForEach ($lang in $languages) {
-    # Tanımlı dil kimliğine ABD klavye düzenini ekle
-    Write-Host ("Dil taranıyor [" + $lang.LanguageTag + "]")
+    # Add US keyboard layout to the defined locale
+    Write-Host ("Scanning language [" + $lang.LanguageTag + "]")
     if ($lang.InputMethodTips -Like $LCID_English_US + "*") {
-        Write-Host ("Eşleşti [" + $lang.LanguageTag + ":" + $LCID_English_US + "], GirişMetoduİpuçları [" + $lang.InputMethodTips + "]")
-        Write-Host ("Ekle [" + $LCID_English_US + ":" + $Keyboard_English_US + "]")
+        Write-Host ("Matched [" + $lang.LanguageTag + ":" + $LCID_English_US + "], InputMethodTips [" + $lang.InputMethodTips + "]")
+        Write-Host ("Add [" + $LCID_English_US + ":" + $Keyboard_English_US + "]")
         $lang.InputMethodTips.Add($LCID_English_US + ":" + $Keyboard_English_US)
     }
 }
 
-# Değişiklikleri uygula
-Write-Host "`nAşama 1 sonrası değiştirilen diller nesnesi"
+# Apply changes
+Write-Host "`nModified languages object after phase 1"
 Write-Host "---------------------------------------" -NoNewline
 Write-Host ($languages | Format-Table | Out-String) -NoNewline
-Write-Host ("Aşama 1'i kaydet")
+Write-Host ("Commit phase 1")
 Set-WinUserLanguageList $languages -force
 
-Write-Host "`nAşama 2 - kaldırma"
+Write-Host "`nPhase 2 - removing"
 Write-Host "----------------"
 ForEach ($lang in $languages) {
-    # Tanımlı dil kimliğinden ABD klavye düzenini kaldır
-    Write-Host ("Dil taranıyor [" + $lang.LanguageTag + "]")
+    # Remove US keyboard layout from the defined locale
+    Write-Host ("Scanning language [" + $lang.LanguageTag + "]")
     if ($lang.InputMethodTips -Like $LCID_English_US + "*") {
-        Write-Host ("Eşleşti [" + $lang.LanguageTag + ":" + $LCID_English_US + "], GirişMetoduİpuçları [" + $lang.InputMethodTips + "]")
-        Write-Host ("Kaldır [" + $LCID_English_US + ":" + $Keyboard_English_US + "]")
+        Write-Host ("Matched [" + $lang.LanguageTag + ":" + $LCID_English_US + "], InputMethodTips [" + $lang.InputMethodTips + "]")
+        Write-Host ("Remove [" + $LCID_English_US + ":" + $Keyboard_English_US + "]")
         while ($lang.InputMethodTips.Remove($LCID_English_US + ":" + $Keyboard_English_US)) {}
     }
 }
 
-# Değişiklikleri uygula
-Write-Host "`nAşama 2 sonrası değiştirilen diller nesnesi"
+# Apply changes
+Write-Host "`nModified languages object after phase 2"
 Write-Host "---------------------------------------" -NoNewline
 Write-Host ($languages | Format-Table | Out-String) -NoNewline
-Write-Host ("Aşama 2'yi kaydet")
+Write-Host ("Commit phase 2")
 Set-WinUserLanguageList $languages -force
 
-# Klavye düzenini kaldırdıktan sonra yüklü tüm dilleri getir
+# Get all installed languages after removing the layout
 $languages = Get-WinUserLanguageList
 Write-Host ""
-Write-Host "Yüklü diller [son hali]"
+Write-Host "Installed languages [final state]"
 Write-Host "============================="
 Write-Host ($languages | Format-Table | Out-String) -NoNewline
