@@ -1,20 +1,20 @@
-# 🎉 İstenmeyen Klavye Düzenini Kaldırma
+# 🎉 Remove Unwanted Keyboard Layout
 
-Bu **PowerShell programı**, Windows 10 ve 11'de istenmeyen İngilizce klavye düzenini yeniden başlatmaya gerek kalmadan kaldırmanızı sağlar. 💻✨
+This **PowerShell program** allows you to remove the unwanted English keyboard layout on Windows 10 and 11 without the need to reboot. 💻✨
 
-## Kullanım
+## Usage
 
-Programı Çalıştırma
+Running the Program
 ```powershell
-powershell -ExecutionPolicy Bypass -File "$DownloadsPath\IngilizceKlavyeDuzeniSilme.ps1"
+powershell -ExecutionPolicy Bypass -File "$DownloadsPath\RemoveEnglishKeyboardLayout.ps1"
 ```
+Important Notes ⚠️
 
-Önemli Notlar ⚠️
-
-Yapmanız Gerekenler:
-PowerShell’i "Yönetici olarak çalıştır" seçeneğiyle açın.
-Aşağıdaki komutu çalıştırarak gerekli ayarı yapın:
+What You Need to Do: Open PowerShell with the "Run as Administrator" option. Run the following command to set the necessary policy:
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 ```
-Artık istenmeyen klavye düzenini kolayca kaldırabilirsiniz! İyi eğlenceler! 🎈
+Now you can easily remove the unwanted keyboard layout! Have fun! 🎈
+```vbnet
+
+Let me know if you need anything else!
