@@ -62,3 +62,4 @@ Write-Host ""
 Write-Host "Installed languages [final state]"
 Write-Host "============================="
 Write-Host ($languages | Format-Table | Out-String) -NoNewline
+
