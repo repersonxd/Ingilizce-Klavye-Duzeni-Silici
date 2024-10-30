@@ -7,5 +7,9 @@ Bu **PowerShell programı**, Windows 10 ve 11'de istenmeyen Çek QWERTZ klavye d
 Eğer çıktıyı kaydetmek isterseniz, aşağıdaki komutu kullanabilirsiniz:  
 
 ```bash
-powershell .\IstenmeyenKlavyeDuzeniKaldir.ps1 >output_file.txt
-
+powershell .\IstenmeyenKlavyeDuzeniKaldir.ps1 >output_file.txt 
+```
+Ya da çıktıyı doğrudan panoya kopyalamak için:
+```bash
+powershell .\IstenmeyenKlavyeDuzeniKaldir.ps1 | clip
+```
